@@ -1,0 +1,13 @@
+* checkout limpieza
+* politica de reembolso
+* activar reembolsos administrador
+* porcentajes de reembolso NOTA SE VA A DESCONTAR ES EL VALOR DE UNA NOCHE PAGO TOTAL
+* Documentos legales del residente
+* Mostrar el 3% del costo para cliente
+* porcentaje en precio sugerido
+* Cambiar descripcion a un scroll
+* 
+* Busquedas:
+	city
+	country
+	
