@@ -164,25 +164,45 @@
       })
     })
 
-    $(".save_address").click(function(){
-      $.ajax({
-        url:"{% url 'Save_Address' %}",
-        data:{
-              'street':$('.street').val(),
-              'street_optional':$(".street_optional").val(),
-              'city':$(".city").val(),
-              'departament':$(".departament").val(),
-              'country':$(".country").val(),
-              'postcode':$(".postcode").val()
+    function e(texto) {
+      return texto.normalize('NFD').replace(/[\u0300-\u036f]/g,"");
+    }
 
-        },
-        success:function(e){
-          $("#address_house").css('display','none')
-          console.log("Hola")
-          $("#info_1").css('display','block')
-          console.log("Chao")
+    $(".save_address").click(function(){
+      if(e($(".departament").val()).toLowerCase().includes('antioquia')){
+        if(e($(".city").val()).toLowerCase().includes("medellin")){
+          $.ajax({
+            url:"{% url 'Save_Address' %}",
+            data:{
+                  'street':$('.street').val(),
+                  'street_optional':$(".street_optional").val(),
+                  'city':$(".city").val(),
+                  'departament':$(".departament").val(),
+                  'country':$(".country").val(),
+                  'postcode':$(".postcode").val()
+
+            },
+            success:function(e){
+              $("#address_house").css('display','none')
+              $("#info_1").css('display','block')
+            }
+          })
         }
-      })
+        else{
+          $.gritter.add({
+            title: 'EXISTOSO',
+            text: 'Lo sentimos aun no prestamos servicio para esa ciudad',
+            time:'3000'
+          });
+        }
+      }
+      else{
+        $.gritter.add({
+            title: 'EXISTOSO',
+            text: 'Lo sentimos aun no prestamos servicio para ese depatamamento',
+            time:'3000'
+          });
+      }
     })
 
     $(".next").click(function(){

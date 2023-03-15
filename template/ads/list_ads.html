@@ -38,13 +38,13 @@
                   <input class="form-check-input" id="checkbox-bulk-customers-select" type="checkbox" data-bulk-select='{"body":"table-orders-body","actions":"orders-bulk-actions","replacedElement":"orders-actions"}' />
                 </div>
               </th>
-              <th class="sort pe-1 align-middle white-space-nowrap" data-sort="order">Anuncio</th>
-              <th class="sort pe-1 align-middle white-space-nowrap pe-7" data-sort="date">Estado</th>
-              <th class="sort pe-1 align-middle white-space-nowrap" data-sort="address" style="min-width: 12.5rem;">Dirección</th>
-              <th class="sort pe-1 align-middle white-space-nowrap text-center" data-sort="status">Precio</th>
-              <th class="sort pe-1 align-middle white-space-nowrap text-center" data-sort="status">Descuento</th>
-              <th class="sort pe-1 align-middle white-space-nowrap text-center" data-sort="status">Total</th>
-              <th class="sort pe-1 align-middle white-space-nowrap text-end" data-sort="amount">Acciones</th>
+              <th class="sort pe-1 align-middle white-space-nowrap" data-sort="order" style="width: 7%;">Anuncio</th>
+              <th class="sort pe-1 align-middle white-space-nowrap pe-7" data-sort="date" style="width: 7%;">Estado</th>
+              <th class="sort pe-1 align-middle white-space-nowrap" data-sort="address" style="width: 50%;">Dirección</th>
+              <th class="sort pe-1 align-middle white-space-nowrap text-center" data-sort="status" style="width: 10%;">Precio</th>
+              <th class="sort pe-1 align-middle white-space-nowrap text-center" data-sort="status" style="width: 10%;">Descuento</th>
+              <th class="sort pe-1 align-middle white-space-nowrap text-center" data-sort="status" style="width: 10%;">Total</th>
+              <!-- <th class="sort pe-1 align-middle white-space-nowrap text-end" data-sort="amount" style="width: 10%;">Acciones</th> -->
               <th class="no-sort"></th>
             </tr>
         </thead>
@@ -73,7 +73,7 @@
                 {% if i.available %}
                   <span class="badge badge rounded-pill result_status d-block badge-soft-success">Disponible<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
                 {% else %}
-                  <span class="badge badge rounded-pill result_status d-block badge-soft-warning">No Disponible</span>
+                  <span class="badge badge rounded-pill result_status d-block badge-soft-warning">Ya reservada</span>
                 {% endif %}
               </td>
               <td class="address py-2 align-middle white-space-nowrap">
@@ -82,7 +82,7 @@
               <td class="amount py-2 align-middle text-end fs-0 fw-medium">${{i.price|floatformat:0}}</td>
               <td class="amount py-2 align-middle text-end fs-0 fw-medium">{{i.discoun|floatformat:0}}%</td>
               <td class="amount py-2 align-middle text-end fs-0 fw-medium">${{i.PriceWithDiscount|floatformat:0}}</td>
-              <td class="py-2 align-middle white-space-nowrap text-end">
+             <!--  <td class="py-2 align-middle white-space-nowrap text-end">
                 <div class="dropdown font-sans-serif position-static">
                   <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
                   <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
@@ -92,7 +92,7 @@
                     </div>
                   </div>
                 </div>
-              </td>
+              </td> -->
             </tr>
           {% endfor %}
         </tbody>

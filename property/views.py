@@ -12,13 +12,15 @@ def Create_Ads(request):
 	start_2 = 89000
 	start_3 = 90000
 	start_4 = 187000
-	if request.is_ajax():
+	result = False
+	if request.is_ajax():		
 		try:
-			__property = Property.objects.last()
-			if not __property.complete:
-				result = False
-		except Exception as e:
+			__property = Property.objects.filter(complete = False).last()
+		except Property.DoesNotExist as e:
 			print(e)
+			__property = None
+
+		if __property is None:
 			Property(
 				space=Space.objects.get(code = request.GET['id']),
 				user = User.objects.get(pk = request.session['pk_user'])
@@ -29,7 +31,17 @@ def Create_Ads(request):
 			Infomation_addtional(propertys=__property).save()
 			Security_elements(propertys=__property).save()
 			result = True
-
+		elif __property.complete:
+			Property(
+				space=Space.objects.get(code = request.GET['id']),
+				user = User.objects.get(pk = request.session['pk_user'])
+			).save()
+			__property = Property.objects.filter(complete = False).last()
+			request.session['pk_property'] = __property.pk
+			Information(propertys=__property).save()
+			Infomation_addtional(propertys=__property).save()
+			Security_elements(propertys=__property).save()
+			result = True
 		return HttpResponse(result)
 	return render(request,'ads/create_ads.html',{
 			'start_1':start_1,'start_2':start_2,'start_3':start_3,'start_4':start_4

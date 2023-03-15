@@ -17,3 +17,4 @@ class Reservation(models.Model):
 	status = models.CharField(max_length = 45, default="En espera")
 	limpieza = models.IntegerField(default = 0,null=True,blank=True)
 	money_returned = models.IntegerField(default = 0)
+	name_user = models.CharField(max_length = 50, null=True,blank=True)
