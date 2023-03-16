@@ -1,6 +1,7 @@
 from django.db import models
 
 class User(models.Model):
+	code = models.CharField(max_length = 9,null = True, blank=True)
 	first_name = models.CharField(max_length=30)
 	second_name = models.CharField(max_length=30,null = True, blank=True)
 	last_name = models.CharField(max_length=30)

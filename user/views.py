@@ -1,7 +1,9 @@
 from django.http import HttpResponse
+from django.utils.crypto import get_random_string
 from django.shortcuts import render, redirect
 from .models import *
 from emails.operations import Send_Emails
+from property.models import Property
 
 def Login(request):
 	if request.is_ajax():
@@ -29,6 +31,7 @@ def Register(request):
 			user = None
 		if user is None:
 			User(
+				code = get_random_string(length=9),
 				first_name = data['name'],
 				email = data['email'],
 				phone = data['phone'],
@@ -67,3 +70,26 @@ def Activate_Account(request,pk):
 			return redirect('/')
 		return render(request,'error_confirm_email.html')
 	return redirect('/')
+
+def Owners_List(request):
+	user = User.objects.all()
+	data = [
+		{
+			'pk':i.pk,
+			'code':i.code,
+			'property':len(Property.objects.filter(user = i)),
+			'name':i.first_name,
+			'block':i.active,
+			'email':i.email
+		}
+		for i in user
+	]
+	print(data)
+	return render(request,'users/list_user.html',{'user':data})
+
+def Profile(request,pk):
+	user = User.objects.get(pk = pk)
+	return render(request,'users/profile.html')
+
+
+
