@@ -52,7 +52,6 @@ def GetSpace(request):
 	]
 	return Response(data)
 
-
 @api_view(['POST'])
 def Details_Property(request):
 	url_photo = 'http://localhost:9090'
@@ -119,9 +118,6 @@ def Details_Property(request):
 		}
 	return Response(data)
 
-
-
-
 @api_view(['POST'])
 def GetReservations(request):
 	reservation = Reservation.objects.filter(user_email = request.data['email']).order_by('-pk')
@@ -139,9 +135,6 @@ def GetReservations(request):
 		for i in reservation
 	]
 	return Response(data)
-
-
-
 
 @api_view(['POST'])
 def Create_Reservation(request):
@@ -161,9 +154,3 @@ def Create_Reservation(request):
 		limpieza = data['clean']
 	).save()
 	return Response({'result':True})
-
-# @api_view(['POST'])
-# def Create_Comment(request):
-# 	data = request.data
-# 	p
-

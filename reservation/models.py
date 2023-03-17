@@ -1,6 +1,7 @@
 from django.db import models
 from property.models import Property
 from user.models import User
+from from_number_to_letters import Thousands_Separator
 
 class Reservation(models.Model):
 	date_enter = models.CharField(max_length = 12)
@@ -18,3 +19,9 @@ class Reservation(models.Model):
 	limpieza = models.IntegerField(default = 0,null=True,blank=True)
 	money_returned = models.IntegerField(default = 0)
 	name_user = models.CharField(max_length = 50, null=True,blank=True)
+
+	def Total_Payment(self):
+		return Thousands_Separator(self.days * self.price)
+
+	def Price(self):
+		return Thousands_Separator(self.price)
