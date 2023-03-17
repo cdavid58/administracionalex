@@ -3,7 +3,8 @@ from django.utils.crypto import get_random_string
 from django.shortcuts import render, redirect
 from .models import *
 from emails.operations import Send_Emails
-from property.models import Property
+from property.models import *
+from setting.models import *
 
 def Login(request):
 	if request.is_ajax():
@@ -11,6 +12,7 @@ def Login(request):
 		try:
 			user = User.objects.get(email = request.GET['email'],psswd = request.GET['psswd'],active = True)
 			request.session['pk_user'] = user.pk
+			request.session['type_user'] = user.type_user
 			result = True
 		except User.DoesNotExist:
 			result = False
@@ -19,6 +21,11 @@ def Login(request):
 
 def Index(request):
 	return redirect('List_Ads')
+
+def LogOut(request):
+	for i,j in list(request.session.items()):
+		del request.session[i]
+	return redirect('/')
 
 
 def Register(request):
@@ -89,7 +96,28 @@ def Owners_List(request):
 
 def Profile(request,pk):
 	user = User.objects.get(pk = pk)
-	return render(request,'users/profile.html')
+	__property = Property.objects.filter(user = user)
+	data_property = [
+		{
+			'pk':i.pk,
+			'cover':Photo.objects.filter(propertys = i)[0].img.url,
+			'title':i.title,
+			'address':i.city+' - '+i.departament+' - '+i.country
+		}
+		for i in __property
+	]
 
-
-
+	data_trans = [
+		{
+			'title':i.propertys.title,
+			'total': i.amount_total,
+			'amount_me': i.amount_me,
+			'amount_property': i.amount_property,
+			'img':Photo.objects.filter(propertys = i.propertys)[0].img.url,
+			'date_payment':i.date_payment
+		}
+		for i in History_Transaccion.objects.filter(user = user)
+	]
+	return render(request,'users/profile.html',{'user':user,'property':data_property,'history':Movement_History.objects.filter(user = user),
+			'data_trans':data_trans
+		})

@@ -6,6 +6,7 @@ urlpatterns=[
 	url(r'^Index/$',Index,name="Index"),
 	url(r'^Register/$',Register,name="Register"),
 	url(r'^Owners_List/$',Owners_List,name="Owners_List"),
+	url(r'^LogOut/$',LogOut,name="LogOut"),
 	url(r'^Activate_Account/(\d+)/$',Activate_Account,name="Activate_Account"),
 	url(r'^Profile/(\d+)/$',Profile,name="Profile"),
 ]
